@@ -113,8 +113,65 @@ This is also a good example of best vs worst case. If the list to sort is alread
 iteration (e.g. n) to sort. However, in the worst case, we have to go through the list n times and each time looping
 through another n times (less how may loops we have done before) which is slow.
 
+You may notice that it's technically less than O(n^2) as the second loop descreases each time. This gets ignored 
+because as the size of each data set increases this impact of this becomes more and more marginal and tends towards
+quadratic. 
 
+#O(2^n)
+Exponential growth! Any algorithm where adding another element drastically increases the processing time. Take for
+example trying to find combinations; if I have a list of 150 people and I would like to find every combination of
+groupings; everyone by themselves, all of the groups of 2 people, all of the groups of 3 people, etc. Using a simple
+program which takes each person and loops through the combinations, if I add one extra person then it's going to increase
+the processing time exponenetially. Every new element will double the processing time.
 
+In reality, O(2^n) algorithms are not scalable.
+
+# How to Figure out Big O in an interview
+This is not an exhaustive list of Big O. Much as you can O(n^2), you can also have O(n^3)  (imagine bubble sort with an extra loop). What the list on this page should allow you to do is have a stab in the dark at figuring out what the big O
+of an algorithm is. If someone is asking you this during an interview, they porbably want to see how you try and figure it
+out. Break down the loops and processing. 
+
+- Does it have to go through an entire list? There will be an n in there somewhere. 
+- Does the algorithm's processing time increase at a slower rate than the size of the data set? Then there's probably a
+  logn in there.
+- Are there multiple loops? Then you're probably thinking of n^2 or n^3.
+- Is access time constant irrelevant to the size of the data set? O(1)
+
+#Sample Question
+I have the array of numbers 1 to 100 in a random number. One of the numbers is missing. Write an algorithm to figure out
+what the number is and what position is missing.
+
+There are many variations of this question all of which are very popular. To calculate the missing number we add up all
+the numbers we do have, and subtract this from the expected answwer of the sum of all numbers between 1 and 100.
+To do this, we have to iterate the list once. Whilst we are doing this, we can also note which spot has the gap.
+
+                            public class BlankFinder {
+                             public void findtheBlank(int[] theNumbers) {
+                             int sumOfAllNumbers = 0;
+                             int sumOfNumbersPresent = 0;
+                             int blankSpace = 0;
+                             
+                             for(int i=0; i<theNumbers.length; i++) {
+                             sumOfAllNumbers += i+1;
+                             sumOfNumbersPresent += theNumbers[i];
+                             if(theNumbers[i] == 0){
+                             blankSpace=i;
+                             }
+                             
+                             System.out.println("Missing number=" + (sumOfAllNumbers-sumOfNumbersPresent)
+                             + "at location" + blankSpace + "of the array");
+                             }
+                             
+                             public static void main(String args[]) {
+                             new BlankFinder().findtheBlank(new int[] {7,6,0,1,3,2,4});
+                             }
+                             //Missing number=5 at location 2 of the array
+                             }
+                             
+Caveat: you can also calculate sumOfAllNumberusing (theNumbers.length+1)*(theNumbers.length)/2.0. I would never
+remember that during an interview though.
+
+Our algorithm iterates through the list once, so it's O(n).
 
 
 
