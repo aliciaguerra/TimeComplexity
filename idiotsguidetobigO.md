@@ -108,7 +108,12 @@ Imagine writing the code for this; it's two loops of n iterations:
                             }
                             return toSort;
                             }
-                          
+  
+This is also a good example of best vs worst case. If the list to sort is already sorted, then it will only take one
+iteration (e.g. n) to sort. However, in the worst case, we have to go through the list n times and each time looping
+through another n times (less how may loops we have done before) which is slow.
+
+
 
 
 
